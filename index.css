@@ -17,3 +17,8 @@
     max-height: 100%;
     object-fit: cover; /* Заполняет контейнер с сохранением пропорций */
 }
+img {
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
