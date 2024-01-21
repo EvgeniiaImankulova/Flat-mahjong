@@ -1,39 +1,57 @@
-// 1. находим список всех элементов с классом grid-item, кладем этот список (массив) в переменную
-const gridItemList = document.querySelectorAll('.grid-item')
-// 2. кладем в переменную первый img элемент с классом grid-item
-const targetElement = gridItemList[0];
+// 1. Получите элемент сетки
+const gridContainer = document.getElementById("gridContainer");
+// 2. Получите все элементы в сетке
+const gridItems = gridContainer.getElementsByClassName('grid-item');
 
-// 3. объявляем колл бэк, который будет вызываться внутри метода addEventListener во время клика на img элемент
-const replaceImage = (event) => {
-  console.log(event.currentTarget)
-  const imageElement = event.currentTarget.children[0]
-  console.log(imageElement.src)
-  if (imageElement.src.includes("images/1.png")) {
-    imageElement.src = imageElement.src.replace("images/1.png", "images/2.png")
-  } else {
-    imageElement.src = imageElement.src.replace("images/2.png", "images/1.png")
-  }
+// Добавьте обработчик событий для каждого элемента в сетке
+
+for (let i = 0; i < gridItems.length; i++) {
+  gridItems[i].addEventListener("click", function (event) {
+    // Обработка клика на элементе
+    let dataIndex = event.currentTarget.getAttribute("data-index");
+    // alert("Вы кликнули на элемент с индексом " + dataIndex);
+  });
 }
 
-// 4. подписываемся на событие клика мышки внутри img элемента targetElement 
-// передаем колл бэк replaceImage
-targetElement.addEventListener('click', replaceImage)
+// Создаем массив с уникальными элементами
+let uniqueElements = [
+"./images/1.png",
+"./images/2.png",
+"./images/3.png",
+"./images/4.png",
+"./images/5.png",
+"./images/6.png",
+"./images/7.png",
+"./images/8.png",
+];
 
+// Дублируем элементы массива
+let  duplicatedElements = uniqueElements.slice();
 
+// Соединяем два массива
+let  combinedArray = uniqueElements.concat(duplicatedElements);
 
-// JUST EXAMPLES BELOW
-// const addEventListener = (type, cb) => {
-//   if (type === 'click' && targetElement === 'div') {
-//     cb()
-//   }
-// }
+// Перемешиваем массив случайным образом
+for (let i = combinedArray.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = combinedArray[i];
+    combinedArray[i] = combinedArray[j];
+    combinedArray[j] = temp;
+}
+console.log(combinedArray)
+let coverArray = Array.from(gridItems);
 
-// function showDick() {
-//   console.log('ХУЙ')
-// }
+console.log(coverArray)
 
-// const showDick3 = function showDick() {
-//   console.log('ХУЙ')
-// }
+for (let i = 0; i < gridItems.length; i++) {
+  gridItems[i].addEventListener("click", function (event) {
+    let dataIndex = event.currentTarget.getAttribute("data-index");
+    let imageSrc = combinedArray[dataIndex];
 
-// targetElement.addEventListener('mouseout', showDick3)
+    // Заменяем содержимое кликнутого элемента
+    event.currentTarget.innerHTML = `<img src="${imageSrc}" alt="Image">`;
+    
+    
+  });
+}
+
