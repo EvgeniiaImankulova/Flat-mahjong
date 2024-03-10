@@ -60,7 +60,7 @@ for (let i = 0; i < gridItems.length; i++) {
 function checkCards() {
   const [card1, card2] = flippedCards;
   // console.log(flippedCards);
-  if (card1.src === card2.src) {
+  if (card1.src === card2.src && card1.index != card2.index) {
     // Если картинки совпадают, скрываем их
     gridItems[card1.index].classList.add("hidden");
     gridItems[card2.index].classList.add("hidden");
